@@ -1,0 +1,56 @@
+{
+  "name": "llm_on_node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel app.js -d dist",
+    "start": "node ./bin/www"
+  },
+  "author": "Aditya Vats",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/preset-env": "^7.18.2",
+    "@babel/register": "^7.17.7",
+    "@langchain/anthropic": "^0.2.1",
+    "async": "^3.2.4",
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "langchain": "^0.2.5",
+    "lodash": "^4.17.21",
+    "pg": "^8.12.0",
+    "prettier": "^2.7.1",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "copy": "^0.3.2",
+    "del": "^6.1.1",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-clean-dest": "^0.2.0",
+    "gulp-copy": "^4.0.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "nodemon": "^2.0.16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}

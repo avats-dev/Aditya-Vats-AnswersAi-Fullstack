@@ -1,0 +1,43 @@
+services:
+  - type: web
+    runtime: docker
+    name: llm-service
+    repo: https://github.com/render-examples/webdis.git # Default: Repo containing render.yaml
+    scaling: # Autoscaling configuration
+      minInstances: 1
+      maxInstances: 2
+      targetMemoryPercent: 80 # Optional if targetCPUPercent is set
+      targetCPUPercent: 80    # Optional if targetMemory is set
+    healthCheckPath: /
+    envVars:
+      - key: 
+        fromService: # Reference a property from another service (see available properties below)
+          type: redis
+          name: lightning
+          property: host
+      - key: REDIS_PORT
+        fromDatabase:
+          type: redis
+          name: lightning
+          property: port
+      - fromGroup: env-group
+
+databases:
+  # A Pro database instance with a read replica
+  - name: db # Required
+    postgresMajorVersion: "15" # Default: most recent supported version
+    region: singapore # Default: oregon
+    plan: free # Default: starter
+    databaseName: llm_db # Default: generated value based on name
+    user: db_user # Default: generated value based on name
+    ipAllowList: # Default: allows all connections
+      - source: 0.0.0.0/0
+        description: everywhere
+
+envVarGroups:
+  - name: env-group
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true

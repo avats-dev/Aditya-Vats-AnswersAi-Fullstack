@@ -1,0 +1,10 @@
+// This will be our application entry. We'll setup our server here.
+console.log(new Date(), "Starting server...")
+const http = require('http');
+const app = require('../app'); // The express app we just created
+
+const port = parseInt(process.env.PORT, 10) || 1234;
+app.set('port', port);
+console.log('PORT---->',port)
+const server = http.createServer(app);
+server.listen(port);
