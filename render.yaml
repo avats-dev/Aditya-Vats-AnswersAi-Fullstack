@@ -2,25 +2,26 @@ services:
   - type: web
     runtime: docker
     name: llm-service
-    repo: https://github.com/render-examples/webdis.git # Default: Repo containing render.yaml
-    scaling: # Autoscaling configuration
-      minInstances: 1
-      maxInstances: 2
-      targetMemoryPercent: 80 # Optional if targetCPUPercent is set
-      targetCPUPercent: 80    # Optional if targetMemory is set
-    healthCheckPath: /
+    plan: free
+    region: singapore
+    repo: https://github.com/avats-dev/Aditya-Vats-AnswersAi-Backend.git
+    # scaling: # Autoscaling configuration
+    #   minInstances: 1
+    #   maxInstances: 2
+    #   targetMemoryPercent: 80 # Optional if targetCPUPercent is set
+    #   targetCPUPercent: 80    # Optional if targetMemory is set
+    # healthCheckPath: /
     envVars:
-      - key: 
-        fromService: # Reference a property from another service (see available properties below)
-          type: redis
-          name: lightning
-          property: host
-      - key: REDIS_PORT
+      - key: PORT
+        value: 3000
+      - key: DB_CONN_STRING
         fromDatabase:
-          type: redis
-          name: lightning
-          property: port
-      - fromGroup: env-group
+          name: db
+          property: connectionString
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
 
 databases:
   # A Pro database instance with a read replica
@@ -33,11 +34,3 @@ databases:
     ipAllowList: # Default: allows all connections
       - source: 0.0.0.0/0
         description: everywhere
-
-envVarGroups:
-  - name: env-group
-    envVars:
-      - key: ANTHROPIC_API_KEY
-        sync: false
-      - key: JWT_SECRET
-        generateValue: true
