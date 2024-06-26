@@ -3,7 +3,7 @@ console.log(new Date(), "Starting server...")
 const http = require('http');
 const app = require('../app'); // The express app we just created
 
-const port = parseInt(process.env.PORT, 10) || 1234;
+const port = parseInt(process.env.PORT, 10) || 3000;
 app.set('port', port);
 console.log('PORT---->',port)
 const server = http.createServer(app);
