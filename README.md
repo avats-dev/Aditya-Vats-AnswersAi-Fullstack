@@ -267,13 +267,15 @@ This service can be deployed as a dockerized container anywhere. Further, I have
 
 For production scenarios, cloud native deployment is a very good and scalable choice. Using kubernetes and resource definitions, one can deploy service and db along with a load balancer. Two possible ways can be used for this approach:
 
-1. k3s based
+1. k3s based: 
    With a compute engine such as on-prem machine or cloud compute (for example, AWS ECS), one can setup k3s which is a very lightweight version of k8s and then deploy the resource definitions in a spinned up cluster.
 
-2. cloud kubernetes engines
+2. Cloud kubernetes engines: 
    Using a cloud kubernetes engine such as GKE, one can deploy resource definitions directly and cluster can be configured manually or programmatically through other IAC(Infra as code) approaches
 
 #### Possible architecture for service along with CI/CD
+
+> We can have a call to elaborate better and discuss the possible production-ready architectures with their pros and cons.
 
 ![arch-diagram](llm-arch.jpeg)
 ---
